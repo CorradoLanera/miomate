@@ -1,0 +1,15 @@
+*.log
+*.pdf
+*.blg
+*.bbl
+*.aux
+*-blx.bib
+*.out
+*.idx
+*.ind
+*.ilg
+*.bcf
+*.run.xml
+*.synctex.gz
+*.toc
+.DS_Store

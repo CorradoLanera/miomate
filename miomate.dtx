@@ -1,0 +1,220 @@
+% \iffalse
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+%<*system>
+\begingroup
+\input docstrip.tex
+\keepsilent
+\preamble
+	------------------------------------------------------
+	The miomate.sty package sets all mathematical
+	package and options needed in a scientific text
+	in italian.
+	
+	Copyright (C) 2013 Corrado Lanera
+	All rights reserved
+	
+	License information appended
+	
+\endpreamble
+\postamble
+Copyright 2013 Corrado Lanera
+
+Distributable under the LaTeX Project Public License,
+version 1,3c or higher (your choice). The latest version of
+this license is at: http://www.latex-project.org/lppl.txt
+
+This work is ``author-maintained''
+
+This work consists of this file miomate.dtx
+and the derived file miomate.sty and miomate.pdf
+
+\endpostamble
+\askforoverwritefalse
+%
+\generate{\file{miomate.sty}{\from{miomate.dtx}{package}}}
+%
+\def\tmpa{plain}
+\ifx\tmpa\fmtname\endgroup\expandafter\bye\fi
+\endgroup
+%</system>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{miomate.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[2009/01/01]
+%<package>\ProvidesFile{miomate.sty}
+%<*package>
+	[2013/11/15 v.0.1 
+%</package>
+%<package>  Pacchetto di impostazioni matematiche per testi scientifici italiani]
+%<*driver>
+   Documentazione relativa al pacchetto miomate.sty]
+\documentclass[a4paper]{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,textcomp}
+\usepackage[italian]{babel}
+\hfuzz 10pt
+\usepackage{guit}
+%
+\begin{document}\errorcontextlines=9
+\GetFileInfo{miomate.dtx}
+\title{Il pacchetto \texttt{miomate.sty}\thanks{Version number \fileversion;
+ultima revisione \filedate.}}
+\author{Corrado Lanera\thanks{e-mail: \texttt{corrado dot lanera
+		at gmail dot com}}}
+	\maketitle
+	\DocInput{miomate.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{100}
+% \begin{abstract}
+% Il pacchetto |miomate.sty| richiama diversi pacchetti e strumenti matematici di utilità per i 
+% testi di tipo scientifico. Inoltre definisce alcuni ambienti per comporre teoremi, dimostrazioni e
+% altro. Attua anche un adeguamento all'uso italiano delle lettere minuscole greche, invertendo le 
+% versioni standandart e le rispettive varianti (di uso comune in italiano).
+% 
+% \end{abstract}
+%
+% \section{Generalità del pacchetto}
+%		Il pacchetto |miomate.sty|  carica e definisce diversi strumenti di utilità in testi scientifici. In particolare:
+%	\begin{itemize}
+%		\item carica i tre principali pacchetti matematici |amsmath|, |amssymb| e |amsthm| per definire
+% la simbologia e le strutture matematiche avanzate, oltre che gli ambienti per per teoremi e affini;
+%		\item inverte la definizione delle lettere minuscole greche e le rispettive varianti in accordo all'
+% uso che se ne fa di solito nei testi in italiano;
+%		\item definisce i comandi per i simboli degli insiemi numerici classici;
+%		\item definisce un ambiente (ideato da Lorenzo Pantieri) per scrivere sistemi;
+%		\item definisce gli ambienti per teoremi, lemmi, corollari, osservazioni, proposizioni, definizioni,
+% esempi, esercizi, soluzioni, oltre che un ambiente speciale |nometeo| per teoremi il cui nome abbia
+% particolare importanza: dando un argomento (obbligatorio) a tale ambiente si stamperà il
+% contenuto di tale argomento in luogo della voce ``teorema'', mantentendo però la struttura e la
+% numerazione data ai teoremi fino a quel momento. Oltretutto, visto che il pacchetto è fatto in modo
+% da funzionare sia con classi che prevedono una suddivisione del testo in capitoli, sia che non la
+% prevedono, l'adattamento alla struttura è stato reso sempre coerente con quella del testo.
+%	\end{itemize}
+%	\StopEventually{}
+%
+%	\section{Codice commentato del pacchetto}
+% Le due righe contenenti il formato e l'identificazione del pacchetto
+% sono già state inserite prima; ora possiamo passare al suo caricamento e 
+% alla modifica da attuare
+% \iffalse
+%<*package>
+%	\fi
+%    \begin{macrocode}
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{miomate}}
+\ProcessOptions*\relax
+%    \end{macrocode}
+% Carichiamo innanzitutto i pacchetti matematici base per simboli, operatori e ambienti.
+%    \begin{macrocode}
+\RequirePackage{amsmath,amssymb,amsthm}
+%    \end{macrocode}
+%
+% Dopodiché adeguiamo al costume italiano la scrittura delle lettere greche minuscole (notando che questo si può fare anche senza i pacchetti sunnominati). Ritardiamo comunque la loro definizione perché al momento i font matematici non sono ancora stati caricati in memoria
+%    \begin{macrocode}
+\AtBeginDocument{
+\makeatletter
+	\let\@epsilon\varepsilon
+	\let\varepsilon\epsilon
+	\let\epsilon\@epsilon
+%	
+	\let\@theta\vartheta
+	\let\vartheta\theta
+	\let\theta\@theta
+%
+	\let\@rho\varrho
+	\let\varrho\rho
+	\let\rho\@rho
+%
+	\let\@phi\varphi
+	\let\varphi\phi
+	\let\phi\@phi
+\makeatother
+}
+%    \end{macrocode}
+%
+% Insiemi numerici (il comando |\@numberset| è un alias per la selezione del
+% carattere Black=board, ed è inserito solo per rendere più chiaro il codice
+% che segue ma sarebbe del tutto superfluo)
+%    \begin{macrocode}
+\let\@numberset\mathbb 
+\newcommand{\N}{\@numberset{N}}
+\newcommand{\Z}{\@numberset{Z}}
+\newcommand{\Q}{\@numberset{Q}}
+\newcommand{\R}{\@numberset{R}}
+\newcommand{\C}{\@numberset{C}}
+%    \end{macrocode}
+%
+% Ambiente per i sistemi (grazie Lorenzo)
+%    \begin{macrocode}
+\newenvironment{sistema}%
+  {\left\lbrace\begin{array}{@{}l@{}}}%
+  {\end{array}\right.}
+%    \end{macrocode}
+%
+% Teoremi e affini. Siccome queste definizioni si trovano nel pacchetto
+% |miomate.sty| e questo pacchetto può venire usato con qualunque classe,
+% e quindi anche in classi dove il comando |\chapter| non  è definito, 
+% controlliamo se esiste tale comando e poi agiamo di conseguenza. Si usa il comando |\ifdefined| che
+% fa parte delle estensioni $\varepsilon$-\TeX\ introdotte nei motori di
+% composizione dal 2005 (vedi documentazione leggendo il file etex.pdf).
+%    \begin{macrocode}
+\theoremstyle{plain}
+\ifdefined\chapter
+	\newtheorem{teorema}{Teorema}[chapter]
+\else
+	\newtheorem{teorema}{Teorema}[section]
+\fi
+%    \end{macrocode}
+%
+% Creiamo tra questi un nuovo ambiente |nometeo| che prende in ingresso un nome
+% completo tipo ``teorema di Pitagora'' per teoremi molto noti o di cui il nome
+% è particolarmente importante. Tale nome sostituirà integralmente la voce
+% ``teorema''. In ogni modo proseguirà la numerazione coerentemente con gli altri
+% teoremi del testo. (grazie Enrico).
+%    \begin{macrocode}
+\newtheorem{@nometeo}[teorema]{\nome@teo}
+\newenvironment{nometeo}[1]
+	{\def\nome@teo{#1}\begin{@nometeo}}
+	{\end{@nometeo}}
+%    \end{macrocode}
+% Ricominciamo ora con la definizione degli altri ambienti affini ai teoremi.
+%    \begin{macrocode}
+\newtheorem{proposizione}[teorema]{Proposizione}
+\newtheorem{lemma}[teorema]{Lemma}
+\newtheorem{corollario}[teorema]{Corollario}
+
+\theoremstyle{definition}
+\newtheorem{definizione}[teorema]{Definizione}
+\newtheorem{esempio}[teorema]{Esempio}
+
+\newenvironment{soluzione}{\begin{proof}[Soluzione]}{\end{proof}}
+\newenvironment{dimostrazione}{\begin{proof}[Dimostrazione]}{\end{proof}}
+
+\theoremstyle{remark}
+\newtheorem{osservazione}[teorema]{Osservazione}
+\newtheorem{nota}[teorema]{Nota}
+%    \end{macrocode}
+%
+% Attiviamo infine il pacchetto |cancel| che abilita la possibilità di barrare facilmente tratti
+% di formule con |\cancel{|\meta{espressione}|}|, |\bcancel{|\meta{espressione}|}| e
+% |\xcancel{|\meta{espressione}|}| che producono rispettivamente una barra di tipo
+% slash, backslash e una X sopra l'espressione nel loro argomento. Inoltre
+% è presente anche la possibilità di usare
+% |\cancel{|\meta{valore}|}{|\meta{espressione}|}| che barra \meta{espressione}
+% con una freccia (di tipo slash) orientata verso l'alto che punta al \meta{valore}.
+%    \begin{macrocode}
+\RequirePackage{cancel}
+%\endinput
+%    \end{macrocode}
+% E questo è tutto.
+% \iffalse
+%</package>
+%\fi
+%	\Finale

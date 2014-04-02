@@ -47,7 +47,7 @@ and the derived file miomate.sty and miomate.pdf
 %<package>\NeedsTeXFormat{LaTeX2e}[2009/01/01]
 %<package>\ProvidesFile{miomate.sty}
 %<*package>
-	[2013/11/15 v.0.1 
+	[2013/11/15 v.0.2 
 %</package>
 %<package>  Pacchetto di impostazioni matematiche per testi scientifici italiani]
 %<*driver>
@@ -77,14 +77,15 @@ ultima revisione \filedate.}}
 % Il pacchetto |miomate.sty| richiama diversi pacchetti e strumenti matematici di utilità per i 
 % testi di tipo scientifico. Inoltre definisce alcuni ambienti per comporre teoremi, dimostrazioni e
 % altro. Attua anche un adeguamento all'uso italiano delle lettere minuscole greche, invertendo le 
-% versioni standandart e le rispettive varianti (di uso comune in italiano).
+% versioni standandart e le rispettive varianti (di uso comune in italiano). Carica |mathtools| in 
+% luogo di |amsmath|.
 % 
 % \end{abstract}
 %
 % \section{Generalità del pacchetto}
 %		Il pacchetto |miomate.sty|  carica e definisce diversi strumenti di utilità in testi scientifici. In particolare:
 %	\begin{itemize}
-%		\item carica i tre principali pacchetti matematici |amsmath|, |amssymb| e |amsthm| per definire
+%		\item carica i principali pacchetti matematici |mathtools|, |amssymb| e |amsthm| per definire
 % la simbologia e le strutture matematiche avanzate, oltre che gli ambienti per per teoremi e affini;
 %		\item inverte la definizione delle lettere minuscole greche e le rispettive varianti in accordo all'
 % uso che se ne fa di solito nei testi in italiano;
@@ -113,7 +114,7 @@ ultima revisione \filedate.}}
 %    \end{macrocode}
 % Carichiamo innanzitutto i pacchetti matematici base per simboli, operatori e ambienti.
 %    \begin{macrocode}
-\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{mathtools,amssymb,amsthm}
 %    \end{macrocode}
 %
 % Dopodiché adeguiamo al costume italiano la scrittura delle lettere greche minuscole (notando che questo si può fare anche senza i pacchetti sunnominati). Ritardiamo comunque la loro definizione perché al momento i font matematici non sono ancora stati caricati in memoria
